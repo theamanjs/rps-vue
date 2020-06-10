@@ -32,11 +32,14 @@
       </div> 
     </div>
 
-    <div class="status-opponent text-center" v-if='!move'>{{ summary.opponent.make }}</div>
-    <div class="status-opponent text-center" v-if='move'>{{ summary.opponent.made }}</div>
+    <div class="status-opponent text-center">
+      {{ (move) ? summary.opponent.made : summary.opponent.make}}
+    </div>
+
+    <!-- <div class="status-opponent text-center" v-if='!move'>{{ summary.opponent.make }}</div> -->
+    <!-- <div class="status-opponent text-center" v-if='move'>{{ summary.opponent.made }}</div> -->
 
   </div>
-
 </template>
 
 <script>
@@ -63,30 +66,30 @@
         if(this.opponentMove == 'stone') this.source = require('./../assets/images/stone.svg'); 
         if(this.opponentMove == 'paper') this.source = require('./../assets/images/paper.svg'); 
         if(this.opponentMove == 'scissors') this.source = require('./../assets/images/scissors.svg'); 
+          
+        this.move = true;
         setTimeout(() => {
           this.source = require('./../assets/images/loading.svg');
-        }, this.limit(700, 900));
-        this.move = false;
+          this.move = false;
+        }, this.limit(1500, 1700));
+        
         this.opponentMove = '';
-        // this.selectionOpponent();
+
         setTimeout(() => {
+          if(this.source == "img/loading.e5f52055.svg")
           this.source = require('./../assets/images/tick.png');
           this.move = true;
-        }, this.limit(901, 1300));
-        // setTimeout(() => {
-          //   this.source = require('./../assets/images/tick.png');
-        //   this.move = true;
-        //   // this.test();
-        // }, this.limit(800, 1000));
+        }, this.limit(1900, 2000));
       },
       afterCalculation(oppMove, result){
-        // console.log(oppMove, result)
         if(this.summary.opponent.score.no >= 3) return;
         this.tempResult = result;
-        console.log(this.tempResult, 'temp');
+        
         eventBus.$emit('calculatedResult', this.tempResult);
         eventBus.$emit('oppMove', oppMove);
+        
         this.resetOpponent();
+        
         if(result == 'lose'){
           this.summary.opponent.score.no += 1;
           
@@ -119,22 +122,17 @@
             return;
           }
         }
-        // let tempSource = './../assets/images/' + oppMove + '.svg'; 
-        // console.log(tempSource);
-        // this.source = require('./../assets/images/stone.svg');
       }
-    },
-    computed: {
     },
     mounted() {
       eventBus.$on('selection', (playerMove) => {
         this.selectionOpponent();
 
-        console.log(this.opponentMove, 'test Opp');
         if(this.opponentMove == playerMove){
           this.afterCalculation(this.opponentMove, 'tie');
           return;
         }
+        
         if(this.opponentMove == 'stone' && playerMove == 'paper'){
           this.afterCalculation(this.opponentMove, 'won'); 
           return;
@@ -169,9 +167,7 @@
       setTimeout(() => {
         this.source = require('./../assets/images/tick.png');
         this.move = true;
-        // this.test();
-        
-      }, this.limit(800, 1000));
+      }, this.limit(1000, 1200));
     }
   }
 </script>

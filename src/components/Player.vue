@@ -55,8 +55,12 @@
         </div>
       </div>
 
-    <div class="status-my text-center" v-if="!move">{{ summary.proponent.make }}</div>
-    <div class="status-my text-center" v-if="move">{{ summary.proponent.made }}</div>
+    <div class="status-my text-center">
+      {{ (move) ? summary.proponent.made  : summary.proponent.make}}
+    </div>
+
+    <!-- <div class="status-my text-center" v-if="!move">{{ summary.proponent.make }}</div> -->
+    <!-- <div class="status-my text-center" v-if="move">{{ summary.proponent.made }}</div> -->
   </div>
 </template>
 
@@ -67,19 +71,22 @@
     data(){
       return{
         playerSelection: '',
-        move: false
+        move: false,
+        isCalculating: false
       }
     },
     methods: {  
       playerOption(item){
-        (item == 'stone') ? (this.items.scissors = false, this.items.paper = false) : (this.items.stone = false);
-        (item == 'paper') ? (this.items.scissors = false, this.items.stone = false) : (this.items.paper = false);
-        (item == 'scissors') ? (this.items.stone = false, this.items.paper = false) : (this.items.scissors = false);
-        this.playerSelection = item;
-        
-        eventBus.$emit('selection', this.playerSelection);
-        this.move = true;
-        eventBus.$emit('isMoved', this.move);
+        if(this.isCalculating == false){
+          (item == 'stone') ? (this.items.scissors = false, this.items.paper = false) : (this.items.stone = false);
+          (item == 'paper') ? (this.items.scissors = false, this.items.stone = false) : (this.items.paper = false);
+          (item == 'scissors') ? (this.items.stone = false, this.items.paper = false) : (this.items.scissors = false);
+          this.playerSelection = item;
+          
+          eventBus.$emit('selection', this.playerSelection);
+          this.move = true;
+          this.isCalculating = true;
+        }
       }
     },
     mounted(){
@@ -88,7 +95,9 @@
           this.items.scissors = true;
           this.items.stone = true;
           this.items.paper = true;
-        }, 800);
+          this.move = false;
+          this.isCalculating = false;
+        }, 1500);
       })
     }
   }

@@ -87,7 +87,7 @@ export default {
   created(){
     eventBus.$on('calculatedResult', (afterResult) => {
       this.roundInfo.number += 1;
-      console.log(afterResult, "Result")
+
       if(afterResult == 'won') {
         this.result.null = false;
         this.result.lose = false;
