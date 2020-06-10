@@ -1,4 +1,5 @@
-# rock-paper-scissor-vuejs
+# Rock, Paper and Scissors using Vue.js
+This is simple Vue js based project uses basic api of vue 2.
 
 ## Project setup
 ```
