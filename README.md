@@ -1,5 +1,5 @@
 # Rock, Paper and Scissors using Vue.js
-[![Netlify Status](https://api.netlify.com/api/v1/badges/ed79d6b1-ede9-4ad9-825f-053d75401f4a/deploy-status)](https://app.netlify.com/sites/relaxed-noether-4ea07f/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ed79d6b1-ede9-4ad9-825f-053d75401f4a/deploy-status)](https://app.netlify.com/sites/relaxed-noether-4ea07f/deploys) <br>
 This is simple Vue js based project uses basic api of vue 2.
 
 ## Project setup
